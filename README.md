@@ -1,0 +1,1 @@
+This is a project I worked on in late 2024, I wanted to make something to solve the Letter Boxed in as few words as possible. I think there are some improvements to be made, and I want to get the site published at some point.
