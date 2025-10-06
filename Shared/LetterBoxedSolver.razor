@@ -1,0 +1,665 @@
+﻿@page "/letterboxedsolver"
+
+<style>
+    .divStyle1 {
+        position: absolute;
+        left: 258px;
+        top: 120px;
+        border: 3px orange;
+        fill: hotpink;
+    }
+</style>
+
+<style>
+	.grid-container {
+		display: grid;
+		grid-template-columns: 80px 200px 80px;
+		grid-template-rows: 80px 200px 80px;
+		gap: 10px;
+		padding: 10px;
+	}
+
+	.grid-container > div {
+		text-align: center;
+		padding: 20px 0;
+		font-size: 30px;
+	}
+
+	.special-input {
+		height: 50px;
+		width: 50px;
+		margin: auto;
+		font-size: 30px;
+		text-align: center;
+	}
+
+	.vertical {
+		display: flex;
+		flex-direction: column;
+		gap: 10px; /* Optional: space between inputs */
+	}
+
+	.horizontal {
+		display: flex;
+		flex-direction: row;
+		gap: 8px; /* Optional: space between inputs */
+	}
+
+	.hidden {
+		visibility: hidden;
+	}
+
+	.big-square {
+		border-style: solid;
+		border-color: #642FFE;
+	}
+
+	.column {
+		float: left;
+		width: 33.33%;
+		padding: 10px;
+	}
+
+	/* Clear floats after the columns */
+	.row:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+</style>
+
+
+
+<h1 style="font-weight:bolder;">Letter Boxed Solver</h1>
+<p style="font-weight:bolder;">Letter Boxed is a New York Times game where you have to use all of the twelve letters</p>
+<p style="font-weight:bolder;">The two rules are:</p>
+<p style="font-weight:bolder;">1. You cannot consecutively use letters from the same side</p>
+<p style="font-weight:bolder;">2. The ending letter of your word must be the starting letter of the next word</p>
+
+<div class="row">
+	<div class="column">
+		<div class="grid-container">
+			<div class="hidden"></div>
+			<div class="horizontal">
+				<input class="special-input" maxlength="1" @bind="t1">
+				<input class="special-input" maxlength="1" @bind="t2">
+				<input class="special-input" maxlength="1" @bind="t3">
+			</div>
+			<div class="hidden"></div>
+			<div class="vertical">
+				<input class="special-input" maxlength="1" @bind="l1">
+				<input class="special-input" maxlength="1" @bind="l2">
+				<input class="special-input" maxlength="1" @bind="l3">
+			</div>
+			<div class="big-square"></div>
+			<div class="vertical">
+				<input class="special-input" maxlength="1" @bind="r1">
+				<input class="special-input" maxlength="1" @bind="r2">
+				<input class="special-input" maxlength="1" @bind="r3">
+			</div>
+			<div class="hidden"></div>
+			<div class="horizontal">
+				<input class="special-input" maxlength="1" @bind="b1">
+				<input class="special-input" maxlength="1" @bind="b2">
+				<input class="special-input" maxlength="1" @bind="b3">
+			</div>
+			<div class="hidden"></div>
+		</div>
+		<button @onclick="HandleClickFullView">
+			Submit
+		</button>
+		<button @onclick="HandlePopulateRandom">
+			Populate randomly
+		</button>
+	</div>
+	<div class="column">
+		<div class="m-0" style="padding-bottom: 20px">
+			<div class="list-group">
+				<button type="button"
+						class="list-group-item @(dict_size == 'S' ? "active" : "")"
+						@onclick="() => SetDictionarySize('S')">
+					Small Dictionary (3,000 words)
+				</button>
+				<button type="button"
+						class="list-group-item @(dict_size == 'M' ? "active" : "")"
+						@onclick="() => SetDictionarySize('M')">
+					Medium Dictionary (10,000 words)
+				</button>
+				<button type="button"
+						class="list-group-item @(dict_size == 'L' ? "active" : "")"
+						@onclick="() => SetDictionarySize('L')">
+					Large Dictionary (~45,000 words)
+				</button>
+				<button type="button"
+						class="list-group-item @(dict_size == 'X' ? "active" : "")"
+						@onclick="() => SetDictionarySize('X')">
+					Very Large Dictionary (~286,000 words)
+				</button>
+			</div>
+		</div>
+		<div class="m-0" style="padding-bottom: 20px">
+			<div class="list-group">
+				<button type="button"
+						class="list-group-item @(find_all == false ? "active" : "")"
+						@onclick="() => SetFindAll(false)">
+					Find A Solution
+				</button>
+				<button type="button"
+						class="list-group-item @(find_all == true ? "active" : "")"
+						@onclick="() => SetFindAll(true)">
+					Find All Solutions (can be slow)
+				</button>
+			</div>
+		</div>
+		<div class="m-0" style="padding-bottom: 20px">
+			<div class="list-group">
+				<button type="button"
+						class="list-group-item @(max_words == 1 ? "active" : "")"
+						@onclick="() => SetMaxWords(1)">
+					Max Depth 1
+				</button>
+				<button type="button"
+						class="list-group-item @(max_words == 2 ? "active" : "")"
+						@onclick="() => SetMaxWords(2)">
+					Max Depth 2
+				</button>
+				<button type="button"
+						class="list-group-item @(max_words == 3 ? "active" : "")"
+						@onclick="() => SetMaxWords(3)">
+					Max Depth 3
+				</button>
+				<button type="button"
+						class="list-group-item @(max_words == 4 ? "active" : "")"
+						@onclick="() => SetMaxWords(4)">
+					Max Depth 4
+				</button>
+				<button type="button"
+						class="list-group-item @(max_words == 5 ? "active" : "")"
+						@onclick="() => SetMaxWords(5)">
+					Max Depth 5
+				</button>
+			</div>
+		</div>
+@* 		<h3>Selected Dictionary Size: @dict_size</h3> *@
+	</div>
+	<div class="column">
+		<h2>Input: @input_text</h2>
+		<h2>Output: @output_text</h2>
+		<h2>Result: @display_text</h2>
+		<div style="height:200px;overflow:auto;padding:10px;border:solid;border-width:5px;white-space: pre-wrap;">
+			@boxed_text
+		</div>
+	</div>
+</div>
+
+
+
+@code
+{
+	public int max_words = 3;
+	private void SetMaxWords(int mw)
+	{
+		max_words = mw;
+	}
+
+	public char dict_size = 'X';
+	private void SetDictionarySize(char size)
+	{
+		dict_size = size;
+	}
+
+	public bool find_all = false;
+	private void SetFindAll(bool findall)
+	{
+		find_all = findall;
+	}
+
+	char t1, t2, t3, l1, l2, l3, r1, r2, r3, b1, b2, b3 = '\0';
+
+	string left_text = "abc";
+	string top_text = "def";
+	string bottom_text = "ghi";
+	string right_text = "jkl";
+
+	public string display_text { set; get; } = "";
+	private string input_text { set; get; } = "";
+	public string output_text { set; get; } = "";
+	public string boxed_text { set; get; } = "";
+
+	private async Task HandleClickFullView(MouseEventArgs e)
+	{
+		display_text = "";
+		output_text = "Calculating...";
+		input_text = (t1.ToString() + t2.ToString() + t3.ToString() + l1.ToString() + l2.ToString() + l3.ToString() + r1.ToString() + r2.ToString() + r3.ToString() + b1.ToString() + b2.ToString() + b3.ToString()).ToUpper();
+		StateHasChanged();
+		await Task.Delay(1);
+		RunSolver();
+	}
+	private async Task HandleClickListView(MouseEventArgs e)
+	{
+		display_text = "";
+		output_text = "Calculating...";
+		input_text = left_text.ToUpper() + top_text.ToUpper() + bottom_text.ToUpper() + right_text.ToUpper();
+		StateHasChanged();
+		await Task.Delay(1);
+		RunSolver();
+	}
+	private void RunSolver()
+	{
+		try
+		{
+			Board b = new Board(input_text);
+			List<char> let_rem = new List<char>();
+			foreach (char c in input_text)
+			{
+				let_rem.Add(c);
+			}
+
+			string active_dict = "";
+			switch (dict_size)
+			{
+				case 'L':
+					active_dict = "./Dictionaries/largedictionary.txt";
+					break;
+				case 'M':
+					active_dict = "./Dictionaries/mediumdictionary.txt";
+					break;
+				case 'S':
+					active_dict = "./Dictionaries/smalldictionary.txt";
+					break;
+				default:
+					active_dict = "./Dictionaries/verylargedictionary.txt";
+					break;
+			}
+			char output_size = dict_size; // so it doesn't get changed
+
+			Words w = new Words(active_dict);
+			Solution s = new Solution(b, w);
+
+			TreeNode tree = new TreeNode(new List<string>(), 0, let_rem, "", s.possible_words, find_all, max_words);
+			boxed_text = $"(Size {output_size}) " + tree.PrintBestSolution();  // This should return a string
+			TreeNode.ResetValues();
+
+			output_text = "Done!";
+			Console.WriteLine($"display_text set to: {display_text}");
+		}
+		catch(Exception ex)
+		{
+			output_text = "Error! " + ex.Message;
+			TreeNode.ResetValues();
+		}
+	}
+
+	private void HandlePopulateRandom(MouseEventArgs e)
+	{
+		List<char> random = new List<char>();
+		bool bad = true;
+		int vowel_count;
+		while(bad)
+		{
+			List<char> alphabet = new List<char>();
+			for (int i = 65; i <= 90; i++)
+			{
+				alphabet.Add((char)i);
+			}
+			alphabet.Remove('J');
+			alphabet.Remove('Q');
+
+			vowel_count = 0;
+			random = new List<char>();
+			for(int i = 0; i < 12; i++)
+			{
+				Random rnd = new Random();
+				int index = rnd.Next(0, alphabet.Count - 1);
+				random.Add(alphabet[index]);
+				if("AEIOU".IndexOf(alphabet[index]) >= 0)
+				{
+					vowel_count++;
+				}
+				alphabet.RemoveAt(index);
+			}
+			bad = !(vowel_count >= 5);
+		}
+
+		l1 = random[0];
+		l2 = random[1];
+		l3 = random[2];
+		t1 = random[3];
+		t2 = random[4];
+		t3 = random[5];
+		r1 = random[6];
+		r2 = random[7];
+		r3 = random[8];
+		b1 = random[9];
+		b2 = random[10];
+		b3 = random[11];
+	}
+	///////// <summary>
+	/// 
+	/// </summary>
+	static class StringHelper
+	{
+		public static void PrintList(List<string> input)
+		{
+			for (int i = 0; i < input.Count; i++)
+			{
+				Console.Write(input[i]);
+				if (i + 1 < input.Count)
+				{
+					Console.Write(" => ");
+				}
+			}
+			Console.WriteLine("");
+		}
+	}
+	class Board
+	{
+		public Board(string test_input)
+		{
+			top_side = test_input.Substring(0, 3);
+			left_side = test_input.Substring(3, 3);
+			right_side = test_input.Substring(6, 3);
+			bottom_side = test_input.Substring(9, 3);
+
+			InputParse(top_side);
+			InputParse(bottom_side);
+			InputParse(left_side);
+			InputParse(right_side);
+
+			if (!CheckForNoRepeats())
+			{
+				throw new Exception("There are repeated letters!");
+			}
+		}
+
+		public static void InputParse(string input)
+		{
+			if (input.Length != 3)
+			{
+				throw new Exception("Missing letter!");
+			}
+			foreach (char c in input)
+			{
+				if (!Char.IsLetter(c))
+				{
+					throw new Exception("Invalid character or missing letter!");
+				}
+			}
+		}
+
+		public void PrintBoard()
+		{
+			Console.WriteLine($"  {top_side[0]}  {top_side[1]}  {top_side[2]}  ");
+			Console.WriteLine($"{left_side[0]}         {right_side[0]}");
+			Console.WriteLine($"{left_side[1]}         {right_side[1]}");
+			Console.WriteLine($"{left_side[2]}         {right_side[2]}");
+			Console.WriteLine($"  {bottom_side[0]}  {bottom_side[1]}  {bottom_side[2]}  ");
+		}
+
+		public bool CheckForNoRepeats()
+		{
+			HashSet<char> chars = new HashSet<char>();
+			foreach (char c in top_side)
+			{
+				chars.Add(c);
+			}
+			foreach (char c in left_side)
+			{
+				chars.Add(c);
+			}
+			foreach (char c in right_side)
+			{
+				chars.Add(c);
+			}
+			foreach (char c in bottom_side)
+			{
+				chars.Add(c);
+			}
+			return chars.Count == 12;
+		}
+
+		public string top_side;
+		public string left_side;
+		public string right_side;
+		public string bottom_side;
+	}
+	class Words
+	{
+		public Words(string fn)
+		{
+			string[] text = File.ReadAllLines(fn);
+			//foreach (string s in text)
+			//{
+			//    Console.WriteLine(s);
+			//}
+			all_words = new List<string>(text);
+		}
+		public List<string> all_words = new List<string>();
+	}
+	class Solution
+	{
+		public Solution(Board b, Words w)
+		{
+			board = b;
+			words = w;
+			GetPossibleWords();
+		}
+		public Board board;
+		public Words words;
+		public Dictionary<char, List<string>> possible_words { set; get; } = new Dictionary<char, List<string>>();
+		public void GetPossibleWords()
+		{
+			foreach (string word in words.all_words)
+			{
+				bool good = CheckWordValidity(word);
+				if (good)
+				{
+					char first_character = word[0];
+					if (!possible_words.ContainsKey(first_character))
+					{
+						possible_words.Add(first_character, new List<string>());
+					}
+					possible_words[first_character].Add(word);
+				}
+			}
+
+			foreach (char c in possible_words.Keys)
+			{
+				//Console.WriteLine($"=============={c}==========");
+				//foreach(string str in possible_words[c])
+				//{
+				//    Console.WriteLine(str);
+				//}
+			}
+		}
+		public bool CheckWordValidity(string word)
+		{
+			bool good = false;
+			int prev_side;
+			int side;
+
+			good = true;
+			prev_side = -1;
+			foreach (char c in word)
+			{
+				if (word.Length < 3)
+				{
+					return false;
+				}
+				//Console.WriteLine(c);
+				side = -1;
+				if (board.top_side.Contains(c))
+				{
+					side = 1;
+				}
+				else if (board.left_side.Contains(c))
+				{
+					side = 2;
+				}
+				else if (board.right_side.Contains(c))
+				{
+					side = 3;
+				}
+				else if (board.bottom_side.Contains(c))
+				{
+					side = 4;
+				}
+				else
+				{
+					side = 0;
+				}
+				//Console.WriteLine($"{side} side... {prev_side} prev");
+				if (side == prev_side || side == 0)
+				{
+					good = false;
+					break;
+				}
+				prev_side = side;
+			}
+			return good;
+		}
+	}
+	public class TreeNode
+	{
+		public TreeNode Parent { get; private set; }
+		public void AddChild(List<string> _used, int _count, List<char> _rem_let, string _cur)
+		{
+			var node = new TreeNode(_used, _count, _rem_let, _cur, possible_words) { Parent = this };
+			_children.Add(node);
+		}
+
+		public static bool find_all = false;
+		public static int MAX_WORDS = 3;
+		public static int CONST_MAX_WORDS = 3;
+
+		public static Dictionary<char, List<string>> possible_words { set; get; } = null;
+
+		public static Dictionary<int, List<List<string>>> solutions { set; get; } = new Dictionary<int, List<List<string>>>();
+
+		private List<string> words_used;
+		private int word_count;
+		private List<char> letters_remaining;
+		private string current_word;
+
+		private readonly List<TreeNode> _children = new List<TreeNode>();
+
+		public static void ResetValues()
+		{
+			possible_words = new Dictionary<char, List<string>>();
+			solutions = new Dictionary<int, List<List<string>>>();
+			MAX_WORDS = CONST_MAX_WORDS;
+		}
+
+		public TreeNode(List<string> used, int cnt, List<char> let_rem, string cur_word, Dictionary<char, List<string>> possible, bool findall, int MW) // initial settings
+		{
+			words_used = used;
+			word_count = cnt;
+			letters_remaining = let_rem;
+			current_word = cur_word;
+			possible_words = possible;
+			find_all = findall;
+			CONST_MAX_WORDS = MW + 1;
+			MAX_WORDS = MW + 1;
+			CreateNewNodes();
+		}
+
+		public TreeNode(List<string> used, int cnt, List<char> let_rem, string cur_word, Dictionary<char, List<string>> possible)
+		{
+			words_used = used;
+			word_count = cnt;
+			letters_remaining = let_rem;
+			current_word = cur_word;
+			possible_words = possible;
+			CreateNewNodes();
+		}
+		public void CreateNewNodes()
+		{
+			if (letters_remaining.Count == 0) // if puzzle is solved, add to solutions dict and update expected dictionary length
+			{
+				if (!solutions.ContainsKey(word_count))
+				{
+					solutions[word_count] = new List<List<string>>();
+				}
+				solutions[word_count].Add(words_used);
+
+				// StringHelper.PrintList(words_used);
+				if (words_used.Count < MAX_WORDS)
+				{
+					MAX_WORDS = words_used.Count;
+				}
+				return;
+			}
+			// + 1 for faster, no + 1 for all solutions of that length, should modify for specified length
+			if (word_count + 1 >= MAX_WORDS && !find_all) // if original max depth is reached or solution is going to be slower than an existing one, don't make any child nodes
+			{
+				return;
+			}
+			if (word_count >= MAX_WORDS && find_all) // if original max depth is reached or solution is going to be slower than an existing one, don't make any child nodes
+			{
+				return; // find all
+			}
+			List<string> words_with_correct_letter = new List<string>(); // subset of the possible words that start with the ending letter of the previous word, or all possible words if its at the start
+			if (current_word == "")
+			{
+				foreach (List<string> ls in possible_words.Values) // put all words from the dictionary in, since it's at the start so any letter can start
+				{
+					foreach (string str in ls)
+					{
+						words_with_correct_letter.Add(str);
+					}
+				}
+			}
+			else
+			{
+				char last_letter = current_word[current_word.Length - 1];
+				if (possible_words.ContainsKey(last_letter))
+				{
+					words_with_correct_letter = possible_words[last_letter];
+				}
+			}
+			foreach (string str in words_with_correct_letter)
+			{
+				List<char> new_letters_remaining = new List<char>(letters_remaining);
+				List<string> new_words_used = new List<string>(words_used);
+				new_words_used.Add(str);
+				string new_current_word = str;
+
+				foreach (char c in str)
+				{
+					if (new_letters_remaining.Contains(c))
+					{
+						new_letters_remaining.Remove(c);
+					}
+				}
+				// string tempy = "";
+				// foreach (char c in new_letters_remaining)
+				// {
+				// 	tempy += c;
+				// }
+				//Console.WriteLine($"After word {str}, the letters remaining are {tempy}");
+				AddChild(new_words_used, word_count + 1, new_letters_remaining, new_current_word);
+			}
+		}
+		public string PrintBestSolution()
+		{
+			if (solutions.Count == 0)
+			{
+				return "no solutions :(";
+			}
+			int solution_length = solutions.Keys.Min();
+			int num_of_solutions = solutions[solution_length].Count;
+			string outstr = $"Found {num_of_solutions} solutions of length {solution_length}:\n";
+			foreach (List<string> ls in solutions[solution_length])
+			{
+				foreach (string str in ls)
+				{
+					outstr += str;
+					outstr += " → ";
+				}
+				outstr = outstr.Remove(outstr.Length - 4);
+				outstr += "\n";
+			}
+			return outstr;
+		}
+	}
+}

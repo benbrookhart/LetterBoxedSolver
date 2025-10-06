@@ -1,0 +1,7 @@
+C:\Users\xbenj\source\repos\LetterBoxedSolverUI\LetterBoxedSolverUI\obj\Release\net6.0\PubTmp\Out\LetterBoxedSolverUI.exe
+C:\Users\xbenj\source\repos\LetterBoxedSolverUI\LetterBoxedSolverUI\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
+C:\Users\xbenj\source\repos\LetterBoxedSolverUI\LetterBoxedSolverUI\obj\Release\net6.0\PubTmp\Out\appsettings.json
+C:\Users\xbenj\source\repos\LetterBoxedSolverUI\LetterBoxedSolverUI\obj\Release\net6.0\PubTmp\Out\LetterBoxedSolverUI.dll
+C:\Users\xbenj\source\repos\LetterBoxedSolverUI\LetterBoxedSolverUI\obj\Release\net6.0\PubTmp\Out\LetterBoxedSolverUI.deps.json
+C:\Users\xbenj\source\repos\LetterBoxedSolverUI\LetterBoxedSolverUI\obj\Release\net6.0\PubTmp\Out\LetterBoxedSolverUI.runtimeconfig.json
+C:\Users\xbenj\source\repos\LetterBoxedSolverUI\LetterBoxedSolverUI\obj\Release\net6.0\PubTmp\Out\LetterBoxedSolverUI.pdb

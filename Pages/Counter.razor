@@ -1,0 +1,59 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Button Name</button>
+
+<div class="m-4">
+	<input type="text" @bind="text" @oninput="Search"/>
+	<p>@text</p>
+</div>
+<p>@result</p>
+
+@code {
+	private int currentCount = 0;
+	string text = "";
+	string result = "";
+
+	private void IncrementCount()
+	{
+		currentCount += IncrementAmount;
+	}
+
+	[Parameter] public int IncrementAmount { get; set; } = 1;
+
+	async Task Search()
+	{
+		await Task.Delay(3000);
+		result = "150 results were found.";
+	}
+
+	// private void HandleInput(ChangeEventArgs e)
+	// {
+	// 	text = (string)e.Value!;
+	// }
+	// private void HandleMouseOver(MouseEventArgs e)
+	// {
+	// 	divText = "MOUSE HOVERED!";
+	// }
+	// private void HandleMouseOut(MouseEventArgs e)
+	// {
+	// 	divText = "MOUSE NOT OVER";
+	// }
+	// private void HandleKeyDown(KeyboardEventArgs e)
+	// {
+	// 	text = e.Key;
+	// }
+	// private void HandleFocus(FocusEventArgs e)
+	// {
+	// 	text = "TYPING";
+	// }
+	// private void HandleBlur(FocusEventArgs e)
+	// {
+	// 	text = "UR NOT TYPING";
+	// }
+}

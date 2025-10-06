@@ -1,0 +1,77 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\obj\\Release\\net6.0\\scopedcss\\projectbundle\\LetterBoxedSolverUI.bundle.scp.css",
+      "PackagePath": "staticwebassets\\LetterBoxedSolverUI.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "PackagePath": "staticwebassets\\css\\open-iconic"
+    },
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "PackagePath": "staticwebassets\\css\\open-iconic"
+    },
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\wwwroot\\css\\open-iconic\\README.md",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\README.md"
+    },
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
+    },
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
+    },
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
+    },
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
+    },
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\xbenj\\source\\repos\\LetterBoxedSolverUI\\LetterBoxedSolverUI\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.LetterBoxedSolverUI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.build.LetterBoxedSolverUI.props",
+      "PackagePath": "build\\LetterBoxedSolverUI.props"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.LetterBoxedSolverUI.props",
+      "PackagePath": "buildMultiTargeting\\LetterBoxedSolverUI.props"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.buildTransitive.LetterBoxedSolverUI.props",
+      "PackagePath": "buildTransitive\\LetterBoxedSolverUI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
